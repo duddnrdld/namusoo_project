@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: namusoo-backend
+    env: python
+    # backend 폴더 안 requirements.txt 설치
+    buildCommand: pip install -r backend/requirements.txt
+    # backend/app.py 를 실행하도록 경로 지정
+    startCommand: python backend/app.py
+    plan: free
