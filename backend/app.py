@@ -90,6 +90,21 @@ def signup():
     db.session.commit()
     return jsonify({"message": "회원가입 성공"}), 201
 
+@app.route('/signup', methods=['POST'])
+def signup():
+    data = request.get_json()
+    email = data.get('email')
+    pw    = data.get('password')
+    # 중복 체크
+    if User.query.filter_by(email=email).first():
+        return jsonify({"message":"이미 가입된 이메일"}), 400
+    # 신규 생성
+    new = User(email=email, password=pw, login_type='email')
+    db.session.add(new)
+    db.session.commit()
+    return jsonify({"message":"회원가입 성공"}), 201
+
+
 
 if __name__ == '__main__':
     with app.app_context():
